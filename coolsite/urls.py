@@ -15,14 +15,22 @@ Including another URLconf
 """
 
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.urls import path, include
 from women.views import *
 
 from coolsite import settings
 
+from women.sitemaps import WomenSitemap
+
+sitemaps = {
+    'womens': WomenSitemap,
+}
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}),
     path('captcha/', include('captcha.urls')),
     path('', include('women.urls')),
 ]
